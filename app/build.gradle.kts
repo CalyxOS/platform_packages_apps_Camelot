@@ -17,7 +17,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "org.lineageos.camelot"
+        applicationId = "org.calyxos.camelot"
         minSdk = 35
         targetSdk = 35
         versionCode = 1
