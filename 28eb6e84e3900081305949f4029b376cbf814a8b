@@ -16,6 +16,24 @@
       "message": "Needs to pull upstream changes",
       "revId": "28eb6e84e3900081305949f4029b376cbf814a8b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0829ce03_1afd5b1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-03-24T22:32:47Z",
+      "side": 1,
+      "message": "Since this has been merged upstream, it\u0027ll be part of our semi-automated lineage merges, the next time that happens - which is typically before a feature build.",
+      "parentUuid": "333936ba_e423e00e",
+      "revId": "28eb6e84e3900081305949f4029b376cbf814a8b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
