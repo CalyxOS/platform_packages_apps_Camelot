@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     SPDX-FileCopyrightText: 2024 The LineageOS Project
+     SPDX-FileCopyrightText: 2024-2025 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
     <string name="app_name">Visor de PDF</string>
     <string name="find_in_page">Buscar en la página</string>
-    <string name="send">Enviar</string>
+    <string name="share">Compartir</string>
     <string name="open_with">Abrir con...</string>
     <string name="download">Descargar</string>
     <string name="pdf_document">Documento PDF</string>
     <string name="print">Imprimir</string>
+    <string name="download_successful">Descarga correcta</string>
+    <string name="download_error">Error al descargar el archivo</string>
 </resources>

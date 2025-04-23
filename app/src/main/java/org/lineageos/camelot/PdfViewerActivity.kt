@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 The LineageOS Project
+ * SPDX-FileCopyrightText: 2024-2025 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -15,8 +15,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.MeasureSpec
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresExtension
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.util.Consumer
 import androidx.core.view.WindowInsetsCompat
@@ -25,6 +27,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -66,6 +69,22 @@ class PdfViewerActivity : AppCompatActivity(R.layout.activity_main) {
     private val intentListener = Consumer<Intent> { intent ->
         intent.data?.let {
             pdfUri = it
+        }
+    }
+
+    // Launcher
+    private val documentLauncher = registerForActivityResult(
+        ActivityResultContracts.CreateDocument(MIME_TYPE_PDF)
+    ) { uri ->
+        lifecycleScope.launch {
+            val result = pdfViewModel.copyPdf(pdfUri, uri)
+
+            showSnackbar(
+                when (result) {
+                    true -> R.string.download_successful
+                    false -> R.string.download_error
+                }
+            )
         }
     }
 
@@ -125,7 +144,7 @@ class PdfViewerActivity : AppCompatActivity(R.layout.activity_main) {
                         putExtra(Intent.EXTRA_STREAM, pdfUri)
                         type = MIME_TYPE_PDF
                     },
-                    getString(R.string.send)
+                    getString(R.string.share)
                 )
             )
             true
@@ -145,15 +164,8 @@ class PdfViewerActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         R.id.action_download -> {
-            startActivity(
-                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    type = MIME_TYPE_PDF
-                    putExtra(
-                        Intent.EXTRA_TITLE,
-                        pdfViewModel.pdfName.value ?: getString(R.string.pdf_document)
-                    )
-                }
+            documentLauncher.launch(
+                pdfViewModel.pdfName.value ?: getString(R.string.pdf_document)
             )
             true
         }
@@ -205,6 +217,17 @@ class PdfViewerActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
         }
+    }
+
+    private fun showSnackbar(@StringRes messageStringResId: Int) {
+        Snackbar.make(
+            this,
+            pdfViewerFragment.requireView(),
+            getString(messageStringResId),
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(android.R.string.ok) {}
+            .show()
     }
 
     companion object {

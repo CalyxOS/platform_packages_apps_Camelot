@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     SPDX-FileCopyrightText: 2024 The LineageOS Project
+     SPDX-FileCopyrightText: 2024-2025 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
     <string name="app_name">Просмотр PDF</string>
     <string name="find_in_page">Найти на странице</string>
-    <string name="send">Отправить</string>
+    <string name="share">Поделиться</string>
     <string name="open_with">Открыть с помощью…</string>
     <string name="download">Скачать</string>
     <string name="pdf_document">Документ PDF</string>
     <string name="print">Печать</string>
+    <string name="download_successful">Загрузка завершена</string>
+    <string name="download_error">Ошибка при загрузке файла</string>
 </resources>
